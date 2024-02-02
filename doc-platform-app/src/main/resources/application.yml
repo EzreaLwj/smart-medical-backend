@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://43.139.176.227/test_db?characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false
+    username: root
+    password: ezreal
