@@ -1,4 +1,4 @@
-package com.ezreal.types;
+package com.ezreal.types.common;
 
 import lombok.Data;
 
@@ -14,4 +14,13 @@ public class Response<T> {
     private String code;
 
     private String info;
+
+    public Response(T data) {
+        this.data = data;
+    }
+
+    public Response(String code, String info) {
+        this.code = code;
+        this.info = info;
+    }
 }

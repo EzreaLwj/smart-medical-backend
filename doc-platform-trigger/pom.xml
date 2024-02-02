@@ -6,15 +6,24 @@
     <parent>
         <groupId>com.ezreal</groupId>
         <artifactId>doc-platform-backend</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <artifactId>doc-platform-trigger</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ezreal</groupId>
+            <artifactId>doc-platform-infrastructure</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 
 </project>

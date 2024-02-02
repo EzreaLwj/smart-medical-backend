@@ -1,4 +1,4 @@
-package com.ezreal.autobi.config;
+package com.ezreal.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,20 +18,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-@Profile("dev")
 public class Knife4jConfig {
 
     @Bean
     public Docket defaultApi2() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
-                        .title("AutoBi")
-                        .description("AutoBi")
+                        .title("Doc-Platform")
+                        .description("\"Doc-Platform")
                         .version("1.0")
                         .build())
                 .select()
                 // 指定 Controller 扫描包路径
-                .apis(RequestHandlerSelectors.basePackage("com.ezreal.autobi.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.ezreal.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
