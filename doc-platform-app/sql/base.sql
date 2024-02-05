@@ -1,4 +1,8 @@
-create table doc_platform_user
+create database if not exists test_db char set utf8mb4;
+
+use test_db;
+
+create table if not exists doc_platform_user
 (
     id          bigint unsigned auto_increment comment '自增主键'
         primary key,
