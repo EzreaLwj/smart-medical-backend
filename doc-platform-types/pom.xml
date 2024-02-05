@@ -32,4 +32,8 @@
             <artifactId>java-jwt</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>doc-platform-types</finalName>
+    </build>
 </project>

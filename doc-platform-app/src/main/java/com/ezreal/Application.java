@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 2024/2/2
  */
 @SpringBootApplication
-public class DocPlatformApplication {
+public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(DocPlatformApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }

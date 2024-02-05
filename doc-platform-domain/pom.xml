@@ -25,4 +25,8 @@
             <version>1.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>doc-platform-domain</finalName>
+    </build>
 </project>
