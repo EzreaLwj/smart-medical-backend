@@ -5,15 +5,15 @@ import com.ezreal.types.common.Response;
 import com.ezreal.types.common.ResultUtils;
 import com.ezreal.types.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * @author Ezreal
  * @Date 2024/2/3
  */
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
