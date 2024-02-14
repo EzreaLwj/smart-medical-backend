@@ -5,6 +5,7 @@ import com.ezreal.types.common.CheckToken;
 import com.ezreal.types.common.Constants;
 import com.ezreal.types.exception.BusinessException;
 import com.ezreal.types.utils.JwtUtils;
+import com.ezreal.types.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -45,10 +46,14 @@ public class CheckTokenAspect {
                     log.error("token 解析错误, token:{}", token);
                     throw new BusinessException(Constants.ResponseCode.UN_LOGIN);
                 }
+
+                TokenUtils.setToken(token);
             }
             return pjp.proceed();
         } catch (Throwable e) {
             throw new RuntimeException(e);
+        } finally {
+            TokenUtils.clear();
         }
     }
 }
