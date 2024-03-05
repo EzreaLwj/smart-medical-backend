@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ezreal</groupId>
-    <artifactId>doc-platform-backend</artifactId>
+    <artifactId>smart-medical-backend</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
     <modules>
-        <module>doc-platform-domain</module>
-        <module>doc-platform-infrastructure</module>
-        <module>doc-platform-trigger</module>
-        <module>doc-platform-app</module>
-        <module>doc-platform-types</module>
+        <module>smart-medical-domain</module>
+        <module>smart-medical-infrastructure</module>
+        <module>smart-medical-trigger</module>
+        <module>smart-medical-app</module>
+        <module>smart-medical-types</module>
     </modules>
 
     <properties>
