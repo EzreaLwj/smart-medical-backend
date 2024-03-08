@@ -9,7 +9,9 @@ import lombok.Data;
 @Data
 public class UserAuthEntity {
 
-    private String userId;
+    private Long userId;
+
+    private Integer type;
 
     private String token;
 

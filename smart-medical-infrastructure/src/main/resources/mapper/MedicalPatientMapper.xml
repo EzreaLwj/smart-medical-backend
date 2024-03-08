@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezreal.infrastructure.mapper.MedicalPatientMapper">
+
+    <resultMap id="BaseResultMap" type="com.ezreal.infrastructure.po.MedicalPatient">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+            <result property="height" column="height" jdbcType="DECIMAL"/>
+            <result property="weight" column="weight" jdbcType="DECIMAL"/>
+            <result property="sickReason" column="sick_reason" jdbcType="VARCHAR"/>
+            <result property="sickHistory" column="sick_history" jdbcType="VARCHAR"/>
+            <result property="department" column="department" jdbcType="TINYINT"/>
+            <result property="healthMonitor" column="health_monitor" jdbcType="VARCHAR"/>
+            <result property="location" column="location" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,name,
+        email,age,birthday,
+        height,weight,sick_reason,
+        sick_history,department,health_monitor,
+        location,create_time,update_time
+    </sql>
+</mapper>

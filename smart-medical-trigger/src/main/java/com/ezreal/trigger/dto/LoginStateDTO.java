@@ -18,32 +18,17 @@ public class LoginStateDTO implements Serializable {
     /**
      * 用户id
      */
-    private String userId;
+    private Long userId;
 
     /**
-     * 用户昵称
+     * 用户类型
      */
-    private String nickName;
-
-    /**
-     * 个人介绍
-     */
-    private String description;
+    private Integer type;
 
     /**
      * 个人邮箱
      */
     private String email;
-
-    /**
-     * 用户账号
-     */
-    private String account;
-
-    /**
-     * 用户密码
-     */
-    private String password;
 
     /**
      * 手机号码
@@ -55,9 +40,5 @@ public class LoginStateDTO implements Serializable {
      */
     private String avatar;
 
-    /**
-     * 用户住址
-     */
-    private String location;
 
 }

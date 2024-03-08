@@ -4,19 +4,18 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import lombok.Data;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
- * 用户信息表
- * @author Ezreal
- * @TableName doc_platform_user
+ * 患者信息表
+ * @TableName medical_patient
  */
-@TableName(value ="doc_platform_user")
+@TableName(value ="medical_patient")
 @Data
-public class DocPlatformUser implements Serializable {
+public class MedicalPatient implements Serializable {
     /**
      * 自增主键
      */
@@ -26,45 +25,60 @@ public class DocPlatformUser implements Serializable {
     /**
      * 用户id
      */
-    private String userId;
+    private Long userId;
 
     /**
-     * 用户昵称
+     * 患者姓名
      */
-    private String nickName;
+    private String name;
 
     /**
-     * 个人介绍
-     */
-    private String description;
-
-    /**
-     * 个人邮箱
+     * 邮箱
      */
     private String email;
 
     /**
-     * 用户账号
+     * 患者年龄
      */
-    private String account;
+    private Integer age;
 
     /**
-     * 用户密码
+     * 生日
      */
-    private String password;
+    private Date birthday;
 
     /**
-     * 手机号码
+     * 患者身高,单位cm
      */
-    private String phone;
+    private BigDecimal height;
 
     /**
-     * 用户头像
+     * 患者体重,单位kg
      */
-    private String avatar;
+    private BigDecimal weight;
 
     /**
-     * 用户住址
+     * 病因
+     */
+    private String sickReason;
+
+    /**
+     * 病史
+     */
+    private String sickHistory;
+
+    /**
+     * 科室id
+     */
+    private Integer department;
+
+    /**
+     * 身体检测数据
+     */
+    private String healthMonitor;
+
+    /**
+     * 家庭住址
      */
     private String location;
 

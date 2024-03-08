@@ -1,5 +1,6 @@
 package com.ezreal.trigger.dto;
 
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,12 +17,12 @@ public class LoginRequestDTO implements Serializable {
     /**
      * 登录方式
      */
-    private String loginType;
+    private Integer loginType;
 
     /**
      * 用户账号
      */
-    private String account;
+    private String email;
 
     /**
      * 用户密码

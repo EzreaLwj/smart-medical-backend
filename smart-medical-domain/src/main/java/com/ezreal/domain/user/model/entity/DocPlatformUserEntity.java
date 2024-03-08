@@ -18,27 +18,12 @@ public class DocPlatformUserEntity {
     /**
      * 用户id
      */
-    private String userId;
-
-    /**
-     * 用户昵称
-     */
-    private String nickName;
-
-    /**
-     * 个人介绍
-     */
-    private String description;
+    private Long userId;
 
     /**
      * 个人邮箱
      */
     private String email;
-
-    /**
-     * 用户账号
-     */
-    private String account;
 
     /**
      * 用户密码
@@ -56,8 +41,7 @@ public class DocPlatformUserEntity {
     private String avatar;
 
     /**
-     * 用户住址
+     * 0-管理员 1-病人 2-患者
      */
-    private String location;
-
+    private Integer type;
 }

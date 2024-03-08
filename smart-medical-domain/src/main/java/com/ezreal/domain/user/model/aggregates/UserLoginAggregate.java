@@ -12,12 +12,12 @@ public class UserLoginAggregate {
     /**
      * 登录方式
      */
-    private String loginType;
+    private Integer loginType;
 
     /**
      * 用户账号
      */
-    private String account;
+    private String email;
 
     /**
      * 用户密码
