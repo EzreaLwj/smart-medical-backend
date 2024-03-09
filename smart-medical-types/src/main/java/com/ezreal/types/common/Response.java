@@ -23,4 +23,10 @@ public class Response<T> {
         this.code = code;
         this.info = info;
     }
+
+    public Response(T data, String code, String info) {
+        this.data = data;
+        this.code = code;
+        this.info = info;
+    }
 }

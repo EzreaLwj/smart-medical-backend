@@ -7,7 +7,7 @@ package com.ezreal.types.common;
 public class ResultUtils {
 
     public static <T> Response<T> success(T data) {
-        return new Response<>(data);
+        return new Response<>(data, Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo());
     }
 
     public static <T> Response<T> fail(String code, String info) {
