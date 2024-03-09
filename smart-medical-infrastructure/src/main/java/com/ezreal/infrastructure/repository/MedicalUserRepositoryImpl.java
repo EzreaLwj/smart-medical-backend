@@ -56,6 +56,7 @@ public class MedicalUserRepositoryImpl implements MedicalUserRepository {
         DocPlatformUserEntity userEntity = new DocPlatformUserEntity();
         userEntity.setUserId(medicalUser.getUserId());
         userEntity.setAvatar(medicalUser.getAvatar());
+        userEntity.setPhone(medicalUser.getPhone());
         userEntity.setPassword(medicalUser.getPassword());
         userEntity.setEmail(medicalUser.getEmail());
         userEntity.setType(medicalUser.getType());

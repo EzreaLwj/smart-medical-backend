@@ -61,6 +61,7 @@ public class UserController {
             LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
             loginResponseDTO.setUserId(userAuthEntity.getUserId());
             loginResponseDTO.setToken(userAuthEntity.getToken());
+            loginResponseDTO.setType(userAuthEntity.getType());
             return ResultUtils.success(loginResponseDTO);
         } else {
             return ResultUtils.fail(userAuthEntity.getCode(), userAuthEntity.getInfo());
