@@ -33,4 +33,39 @@
     <select id="queryDoctorListTotal" resultType="java.lang.Long">
         select count(*) from medical_doctor
     </select>
+    <select id="queryByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from medical_doctor
+        where
+        user_id = #{userId,jdbcType=NUMERIC}
+    </select>
+    <insert id="insertSelective">
+        insert into medical_doctor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="name != null">name,</if>
+            <if test="gender != null">gender,</if>
+            <if test="position != null">position,</if>
+            <if test="department != null">department,</if>
+            <if test="description != null">description,</if>
+            <if test="phone != null">phone,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="gender != null">#{gender,jdbcType=TINYINT},</if>
+            <if test="position != null">#{position,jdbcType=VARCHAR},</if>
+            <if test="department != null">#{department,jdbcType=TINYINT},</if>
+            <if test="description != null">#{description,jdbcType=VARCHAR},</if>
+            <if test="phone != null">#{phone,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
 </mapper>

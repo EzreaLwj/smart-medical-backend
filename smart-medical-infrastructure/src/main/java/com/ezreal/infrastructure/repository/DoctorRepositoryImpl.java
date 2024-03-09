@@ -43,4 +43,22 @@ public class DoctorRepositoryImpl implements DoctorRepository {
     public Long queryDoctorListTotal() {
         return doctorMapper.queryDoctorListTotal();
     }
+
+    @Override
+    public DoctorEntity queryDoctorEntity(Long userId) {
+        MedicalDoctor medicalDoctor = doctorMapper.queryByUserId(userId);
+        if (medicalDoctor == null) {
+            return null;
+        }
+
+        DoctorEntity doctorEntity = new DoctorEntity();
+        doctorEntity.setUserId(medicalDoctor.getUserId());
+        doctorEntity.setName(medicalDoctor.getName());
+        doctorEntity.setGender(medicalDoctor.getGender());
+        doctorEntity.setPosition(medicalDoctor.getPosition());
+        doctorEntity.setDepartmentName(DepartmentMapper.getDepartName(medicalDoctor.getDepartment()));
+        doctorEntity.setDescription(medicalDoctor.getDescription());
+        doctorEntity.setPhone(medicalDoctor.getPhone());
+        return doctorEntity;
+    }
 }

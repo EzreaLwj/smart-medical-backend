@@ -13,4 +13,7 @@ public interface DoctorRepository {
     List<DoctorEntity> queryDoctorList(Integer pageNo, Integer pageSize);
 
     Long queryDoctorListTotal();
+
+    DoctorEntity queryDoctorEntity(Long userId);
+
 }

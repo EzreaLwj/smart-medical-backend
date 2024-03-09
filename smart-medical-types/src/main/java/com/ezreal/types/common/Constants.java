@@ -1,5 +1,7 @@
 package com.ezreal.types.common;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -17,7 +19,8 @@ public class Constants {
         ERROR_PARAMS("0004", "参数错误"),
         USER_EXIST("0005", "用户已经存在"),
         UPDATE_FAIL("0006", "更新失败"),
-        PATIENT_NOT_FOUND("0007", "患者不存在");
+        PATIENT_NOT_FOUND("0007", "患者不存在"),
+        DOCTOR_NOT_FOUND("0008", "医生不存在");
 
         private final String code;
         private final String info;
@@ -33,6 +36,51 @@ public class Constants {
 
         public String getInfo() {
             return info;
+        }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public enum UserType {
+
+        MANAGER(0, "管理员"),
+        DOCTOR(1, "医生"),
+        PATIENT(2, "患者");
+        private final int code;
+
+        private final String info;
+
+        public static UserType getByCode(int code) {
+            UserType[] values = UserType.values();
+            for (UserType value : values) {
+                if (value.getCode() == code) {
+                    return value;
+                }
+            }
+
+            return MANAGER;
+        }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public enum Gender {
+
+        MAN(0, "男"),
+        WOMAN(1, "女");
+
+        private final int code;
+        private final String info;
+
+        public static Gender getByCode(int code) {
+            Gender[] values = Gender.values();
+            for (Gender value : values) {
+                if (value.getCode() == code) {
+                    return value;
+                }
+            }
+
+            return MAN;
         }
     }
 }

@@ -1,19 +1,22 @@
 package com.ezreal.infrastructure.repository;
 
-import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.lang.generator.SnowflakeGenerator;
-import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
 import com.ezreal.domain.manager.model.aggregate.AddAccountAggregate;
+import com.ezreal.domain.manager.model.entity.DoctorEntity;
+import com.ezreal.domain.manager.model.aggregate.AddDoctorInfoAggregate;
 import com.ezreal.domain.manager.model.entity.MedicalUserEntity;
 import com.ezreal.domain.manager.repository.ManagerRepository;
+import com.ezreal.infrastructure.mapper.MedicalDoctorMapper;
 import com.ezreal.infrastructure.mapper.MedicalUserMapper;
+import com.ezreal.infrastructure.po.MedicalDoctor;
 import com.ezreal.infrastructure.po.MedicalUser;
 import com.ezreal.types.common.Constants;
 import com.ezreal.types.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -27,6 +30,9 @@ public class ManagerRepositoryImpl implements ManagerRepository {
 
     @Resource
     private MedicalUserMapper medicalUserMapper;
+
+    @Resource
+    private MedicalDoctorMapper doctorMapper;
 
     @Override
     public MedicalUserEntity addAccount(AddAccountAggregate addAccountAggregate) {
@@ -67,5 +73,32 @@ public class ManagerRepositoryImpl implements ManagerRepository {
         medicalUserEntity.setEmail(email);
         return medicalUserEntity;
 
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public MedicalUserEntity addDoctorInfo(AddDoctorInfoAggregate addDoctorInfoAggregate) {
+
+        // 创建账号
+        AddAccountAggregate addAccountAggregate = new AddAccountAggregate();
+        addAccountAggregate.setEmail(addDoctorInfoAggregate.getEmail());
+        addAccountAggregate.setPassword(addDoctorInfoAggregate.getPassword());
+        addAccountAggregate.setPhone(addDoctorInfoAggregate.getPhone());
+        addAccountAggregate.setType(addDoctorInfoAggregate.getType());
+
+        MedicalUserEntity userEntity = this.addAccount(addAccountAggregate);
+        DoctorEntity doctorEntity = addDoctorInfoAggregate.getDoctorEntity();
+
+        MedicalDoctor medicalDoctor = new MedicalDoctor();
+        medicalDoctor.setUserId(userEntity.getUserId());
+        medicalDoctor.setName(doctorEntity.getName());
+        medicalDoctor.setGender(doctorEntity.getGender());
+        medicalDoctor.setPosition(doctorEntity.getPosition());
+        medicalDoctor.setDepartment(doctorEntity.getDepartment());
+        medicalDoctor.setDescription(doctorEntity.getDescription());
+        medicalDoctor.setPhone(userEntity.getPhone());
+        doctorMapper.insertSelective(medicalDoctor);
+
+        return userEntity;
     }
 }

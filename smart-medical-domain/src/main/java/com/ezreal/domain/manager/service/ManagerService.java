@@ -1,6 +1,7 @@
 package com.ezreal.domain.manager.service;
 
 import com.ezreal.domain.manager.model.aggregate.AddAccountAggregate;
+import com.ezreal.domain.manager.model.aggregate.AddDoctorInfoAggregate;
 import com.ezreal.domain.manager.model.entity.MedicalUserEntity;
 
 /**
@@ -10,4 +11,6 @@ import com.ezreal.domain.manager.model.entity.MedicalUserEntity;
 public interface ManagerService {
 
     public MedicalUserEntity addAccount(AddAccountAggregate addAccountAggregate);
+
+    public MedicalUserEntity addDoctorInfo(AddDoctorInfoAggregate addDoctorInfoAggregate);
 }

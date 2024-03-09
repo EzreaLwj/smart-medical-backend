@@ -1,6 +1,7 @@
 package com.ezreal.domain.manager.service.impl;
 
 import com.ezreal.domain.manager.model.aggregate.AddAccountAggregate;
+import com.ezreal.domain.manager.model.aggregate.AddDoctorInfoAggregate;
 import com.ezreal.domain.manager.model.entity.MedicalUserEntity;
 import com.ezreal.domain.manager.repository.ManagerRepository;
 import com.ezreal.domain.manager.service.ManagerService;
@@ -20,6 +21,11 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public MedicalUserEntity addAccount(AddAccountAggregate addAccountAggregate) {
         return managerRepository.addAccount(addAccountAggregate);
+    }
+
+    @Override
+    public MedicalUserEntity addDoctorInfo(AddDoctorInfoAggregate addDoctorInfoAggregate) {
+        return managerRepository.addDoctorInfo(addDoctorInfoAggregate);
     }
 
 }
