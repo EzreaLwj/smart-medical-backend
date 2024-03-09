@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://43.138.191.163:3306/medical_system?characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false
+    url: jdbc:mysql://43.138.191.163:3306/smart_medical?characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false
     username: root
     password: ezreal
   mvc:

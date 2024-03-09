@@ -24,13 +24,13 @@ public class Knife4jConfig {
     public Docket defaultApi2() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
-                        .title("Doc-Platform")
-                        .description("\"Doc-Platform")
+                        .title("Smart-Medical")
+                        .description("Smart-Medical")
                         .version("1.0")
                         .build())
                 .select()
                 // 指定 Controller 扫描包路径
-                .apis(RequestHandlerSelectors.basePackage("com.ezreal.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.ezreal.trigger.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
