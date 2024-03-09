@@ -23,4 +23,14 @@
         description,phone,create_time,
         update_time
     </sql>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from medical_doctor
+        order by create_time desc
+        limit #{pageNo}, #{pageSize}
+    </select>
+    <select id="queryDoctorListTotal" resultType="java.lang.Long">
+        select count(*) from medical_doctor
+    </select>
 </mapper>
