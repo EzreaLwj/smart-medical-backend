@@ -90,3 +90,16 @@ create table if not exists medical_reservation
     update_time timestamp       default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
 ) comment '预约信息记录表';
 
+
+create table if not exists medical_monitor_record
+(
+    id             bigint unsigned auto_increment comment '自增主键'
+        primary key,
+    record_id      bigint unsigned default 0                 not null comment '记录id',
+    patient_id     bigint unsigned default 0                 not null comment '患者id',
+    health_monitor varchar(2048)   default ''                not null comment '身体检测数据',
+    monitor_time   timestamp       default CURRENT_TIMESTAMP not null comment '监测日期',
+    create_time    timestamp       default CURRENT_TIMESTAMP not null comment '创建时间',
+    update_time    timestamp       default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
+) comment '患者健康数据检测表';
+
