@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezreal.infrastructure.mapper.MedicalMonitorRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.ezreal.infrastructure.po.MedicalMonitorRecord">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="recordId" column="record_id" jdbcType="BIGINT"/>
+            <result property="patientId" column="patient_id" jdbcType="BIGINT"/>
+            <result property="healthMonitor" column="health_monitor" jdbcType="VARCHAR"/>
+            <result property="monitorTime" column="monitor_time" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,record_id,patient_id,
+        health_monitor,monitor_time,create_time,
+        update_time
+    </sql>
+    <select id="selectByPatientIdAndMonitorTime" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from medical_monitor_record
+        where
+        patient_id = #{patientId,jdbcType=NUMERIC}
+        AND monitor_time = #{monitorTime,jdbcType=VARCHAR}
+    </select>
+    <insert id="insertSelective">
+        insert into medical_monitor_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="recordId != null">record_id,</if>
+            <if test="patientId != null">patient_id,</if>
+            <if test="healthMonitor != null">health_monitor,</if>
+            <if test="monitorTime != null">monitor_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="recordId != null">#{recordId,jdbcType=BIGINT},</if>
+            <if test="patientId != null">#{patientId,jdbcType=BIGINT},</if>
+            <if test="healthMonitor != null">#{healthMonitor,jdbcType=VARCHAR},</if>
+            <if test="monitorTime != null">#{monitorTime,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateHealthMonitorByPatientIdAndMonitorTime">
+        update medical_monitor_record
+        set health_monitor = #{healthMonitor,jdbcType=VARCHAR}
+        where patient_id = #{patientId,jdbcType=NUMERIC}
+          AND monitor_time = #{monitorTime,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPatientId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from medical_monitor_record
+        where
+        patient_id = #{patientId,jdbcType=NUMERIC}
+        order by create_time desc
+        limit #{limit}
+    </select>
+</mapper>

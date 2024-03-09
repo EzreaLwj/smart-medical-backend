@@ -29,4 +29,68 @@
         sick_history,department,health_monitor,
         location,create_time,update_time
     </sql>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from medical_patient
+        where
+        user_id = #{userId,jdbcType=NUMERIC}
+    </select>
+    <insert id="insertSelective">
+        insert into medical_patient
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="name != null">name,</if>
+            <if test="email != null">email,</if>
+            <if test="age != null">age,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="height != null">height,</if>
+            <if test="weight != null">weight,</if>
+            <if test="sickReason != null">sick_reason,</if>
+            <if test="sickHistory != null">sick_history,</if>
+            <if test="department != null">department,</if>
+            <if test="healthMonitor != null">health_monitor,</if>
+            <if test="location != null">location,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+            <if test="age != null">#{age,jdbcType=INTEGER},</if>
+            <if test="birthday != null">#{birthday,jdbcType=TIMESTAMP},</if>
+            <if test="height != null">#{height,jdbcType=DECIMAL},</if>
+            <if test="weight != null">#{weight,jdbcType=DECIMAL},</if>
+            <if test="sickReason != null">#{sickReason,jdbcType=VARCHAR},</if>
+            <if test="sickHistory != null">#{sickHistory,jdbcType=VARCHAR},</if>
+            <if test="department != null">#{department,jdbcType=TINYINT},</if>
+            <if test="healthMonitor != null">#{healthMonitor,jdbcType=VARCHAR},</if>
+            <if test="location != null">#{location,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateSelective">
+        update medical_patient
+        <set>
+
+            <if test="name != null">name=#{name,jdbcType=VARCHAR},</if>
+            <if test="age != null">age=#{age,jdbcType=NUMERIC},</if>
+            <if test="birthday != null">birthday=#{birthday,jdbcType=TIMESTAMP},</if>
+            <if test="height != null">height=#{height,jdbcType=DECIMAL},</if>
+            <if test="weight != null">weight=#{weight,jdbcType=DECIMAL},</if>
+            <if test="sickReason != null">sick_reason=#{sickReason,jdbcType=VARCHAR},</if>
+            <if test="sickHistory != null">sick_history=#{sickHistory,jdbcType=VARCHAR},</if>
+            <if test="department != null">department=#{department,jdbcType=NUMERIC},</if>
+            <if test="healthMonitor != null">health_monitor=#{healthMonitor,jdbcType=VARCHAR},</if>
+            <if test="location != null">location=#{location,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">create_time=#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">update_time=#{updateTime,jdbcType=TIMESTAMP},</if>
+        </set>
+        where user_id = #{userId,jdbcType=NUMERIC}
+    </update>
 </mapper>

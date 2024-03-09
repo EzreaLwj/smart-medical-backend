@@ -16,7 +16,8 @@ public class Constants {
         UN_LOGIN("0003", "用户未登录"),
         ERROR_PARAMS("0004", "参数错误"),
         USER_EXIST("0005", "用户已经存在"),
-        UPDATE_FAIL("0006", "更新失败");
+        UPDATE_FAIL("0006", "更新失败"),
+        PATIENT_NOT_FOUND("0007", "患者不存在");
 
         private final String code;
         private final String info;
