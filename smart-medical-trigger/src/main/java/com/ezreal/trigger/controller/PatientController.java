@@ -3,13 +3,16 @@ package com.ezreal.trigger.controller;
 import com.ezreal.domain.patient.model.aggregates.PatientBaseInfoAggregate;
 import com.ezreal.domain.patient.model.aggregates.PatientMonitorAggregate;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
+import com.ezreal.domain.patient.model.entity.PatientInfoList;
 import com.ezreal.domain.patient.model.entity.PatientMonitorRecordList;
+import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 import com.ezreal.domain.patient.service.PatientService;
 import com.ezreal.trigger.dto.patient.*;
 import com.ezreal.types.common.Response;
 import com.ezreal.types.common.ResultUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,6 +28,11 @@ public class PatientController {
 
     @Resource
     private PatientService patientService;
+
+    @GetMapping("/queryPatientInfo")
+    public Response<PatientInfoList> queryPatientInfo(@Validated PatientQueryRequest patientQueryRequest) {
+        return patientService.queryPatientInfo(patientQueryRequest);
+    }
 
     @ApiOperation("添加基本信息")
     @PostMapping("/addBaseInfo")

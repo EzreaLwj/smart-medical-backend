@@ -8,6 +8,7 @@ import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
 import com.ezreal.domain.patient.model.entity.PatientInfoEntity;
 import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
+import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 import com.ezreal.domain.patient.model.vo.ReserveStatus;
 import com.ezreal.domain.patient.repository.PatientRepository;
 import com.ezreal.infrastructure.mapper.MedicalMonitorRecordMapper;
@@ -143,6 +144,32 @@ public class PatientRepositoryImpl implements PatientRepository {
         medicalReservation.setReservation(reserveAggregate.getReservation());
         log.info("预约成功，patientId:{}, doctorId:{}", reserveAggregate.getPatientId(), reserveAggregate.getDoctorId());
         reservationMapper.insertSelective(medicalReservation);
+    }
+
+    @Override
+    public List<PatientQueryInfoEntity> queryPatientInfoList(PatientQueryRequest patientQueryRequest) {
+        patientQueryRequest.setPageNo((patientQueryRequest.getPageNo() - 1) * patientQueryRequest.getPageSize());
+        List<MedicalPatient> medicalPatients = patientMapper.queryPatientInfoList(patientQueryRequest);
+        return medicalPatients.stream().map((medicalPatient -> {
+            PatientQueryInfoEntity patientQueryInfoEntity = new PatientQueryInfoEntity();
+            patientQueryInfoEntity.setName(medicalPatient.getName());
+            patientQueryInfoEntity.setEmail(medicalPatient.getEmail());
+            patientQueryInfoEntity.setAge(medicalPatient.getAge());
+            patientQueryInfoEntity.setBirthday(medicalPatient.getBirthday());
+            patientQueryInfoEntity.setHeight(medicalPatient.getHeight());
+            patientQueryInfoEntity.setWeight(medicalPatient.getWeight());
+            patientQueryInfoEntity.setSickReason(medicalPatient.getSickReason());
+            patientQueryInfoEntity.setSickHistory(medicalPatient.getSickHistory());
+            patientQueryInfoEntity.setDepartmentName(Constants.DepartmentType.getByCode(medicalPatient.getDepartment()).getInfo());
+            patientQueryInfoEntity.setHealthMonitor(medicalPatient.getHealthMonitor());
+            patientQueryInfoEntity.setLocation(medicalPatient.getLocation());
+            return patientQueryInfoEntity;
+        })).collect(Collectors.toList());
+    }
+
+    @Override
+    public Long queryPatientInfoTotal(PatientQueryRequest patientQueryRequest) {
+        return patientMapper.queryPatientInfoListCount(patientQueryRequest);
     }
 
 }

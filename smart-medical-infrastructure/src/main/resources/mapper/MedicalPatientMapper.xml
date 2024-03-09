@@ -36,6 +36,32 @@
         where
         user_id = #{userId,jdbcType=NUMERIC}
     </select>
+    <select id="queryPatientInfoList" resultType="com.ezreal.infrastructure.po.MedicalPatient">
+        select <include refid="Base_Column_List"/>
+            from medical_patient
+        <where>
+            <if test="request.departmentId != null">
+                department= #{request.departmentId}
+            </if>
+            <if test="request.name != null">
+                name = #{request.name}
+            </if>
+        </where>
+        order by create_time desc
+        limit #{request.pageNo}, #{request.pageSize}
+    </select>
+    <select id="queryPatientInfoListCount" resultType="java.lang.Long">
+        select count(*)
+        from medical_patient
+        <where>
+            <if test="request.departmentId != null">
+                department= #{request.departmentId}
+            </if>
+            <if test="request.name != null">
+                name = #{request.name}
+            </if>
+        </where>
+    </select>
     <insert id="insertSelective">
         insert into medical_patient
         <trim prefix="(" suffix=")" suffixOverrides=",">

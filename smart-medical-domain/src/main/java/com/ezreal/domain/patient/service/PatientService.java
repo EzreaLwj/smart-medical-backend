@@ -3,7 +3,9 @@ package com.ezreal.domain.patient.service;
 import com.ezreal.domain.patient.model.aggregates.PatientBaseInfoAggregate;
 import com.ezreal.domain.patient.model.aggregates.PatientMonitorAggregate;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
+import com.ezreal.domain.patient.model.entity.PatientInfoList;
 import com.ezreal.domain.patient.model.entity.PatientMonitorRecordList;
+import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 import com.ezreal.types.common.Response;
 
 /**
@@ -20,4 +22,5 @@ public interface PatientService {
 
     Response<String> reserveDoctor(ReserveAggregate reserveAggregate);
 
+    Response<PatientInfoList> queryPatientInfo(PatientQueryRequest patientQueryRequest);
 }

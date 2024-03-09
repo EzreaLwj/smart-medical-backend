@@ -4,7 +4,10 @@ import com.ezreal.domain.patient.model.aggregates.PatientBaseInfoAggregate;
 import com.ezreal.domain.patient.model.aggregates.PatientMonitorAggregate;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
+import com.ezreal.domain.patient.model.entity.PatientInfoList;
 import com.ezreal.domain.patient.model.entity.PatientMonitorRecordList;
+import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
+import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 import com.ezreal.domain.patient.repository.PatientRepository;
 import com.ezreal.domain.patient.service.PatientService;
 import com.ezreal.types.common.Response;
@@ -53,6 +56,16 @@ public class PatientServiceImpl implements PatientService {
     public Response<String> reserveDoctor(ReserveAggregate reserveAggregate) {
         patientRepository.reserveDoctor(reserveAggregate);
         return ResultUtils.success("预约成功");
+    }
+
+    @Override
+    public Response<PatientInfoList> queryPatientInfo(PatientQueryRequest patientQueryRequest) {
+        List<PatientQueryInfoEntity> patientQueryInfoEntities = patientRepository.queryPatientInfoList(patientQueryRequest);
+        Long total = patientRepository.queryPatientInfoTotal(patientQueryRequest);
+        PatientInfoList patientInfoList = new PatientInfoList();
+        patientInfoList.setPatientQueryInfoEntities(patientQueryInfoEntities);
+        patientInfoList.setTotal(total);
+        return ResultUtils.success(patientInfoList);
     }
 
 }

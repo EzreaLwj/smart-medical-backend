@@ -1,6 +1,7 @@
 package com.ezreal.infrastructure.mapper;
 import java.util.List;
 
+import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,6 +21,10 @@ public interface MedicalPatientMapper extends BaseMapper<MedicalPatient> {
     int insertSelective(MedicalPatient medicalPatient);
 
     int updateSelective(MedicalPatient medicalPatient);
+
+    List<MedicalPatient> queryPatientInfoList(@Param("request") PatientQueryRequest patientQueryRequest);
+
+    Long queryPatientInfoListCount(PatientQueryRequest patientQueryRequest);
 }
 
 

@@ -4,6 +4,7 @@ import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
 import com.ezreal.domain.patient.model.entity.PatientInfoEntity;
 import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
+import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 
 import java.util.List;
 
@@ -22,4 +23,8 @@ public interface PatientRepository {
     List<PatientHeathMonitorEntity> queryPatientMonitorRecords(Long patientId, int days);
 
     void reserveDoctor(ReserveAggregate reserveAggregate);
+
+    List<PatientQueryInfoEntity> queryPatientInfoList(PatientQueryRequest patientQueryRequest);
+
+    Long queryPatientInfoTotal(PatientQueryRequest patientQueryRequest);
 }
