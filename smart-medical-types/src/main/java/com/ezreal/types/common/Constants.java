@@ -41,6 +41,29 @@ public class Constants {
 
     @Getter
     @AllArgsConstructor
+    public enum DepartmentType {
+
+        NEI_KE(1, "内科"),
+        WAI_KE(2, "外科"),
+        PIFU_KE(3, "皮肤科")
+        ;
+
+        private final int code;
+
+        private final String info;
+
+        public static DepartmentType getByCode(int code) {
+            for (DepartmentType value : values()) {
+                if (value.getCode() == code) {
+                    return value;
+                }
+            }
+            return NEI_KE;
+        }
+    }
+
+    @Getter
+    @AllArgsConstructor
     public enum UserType {
 
         MANAGER(0, "管理员"),

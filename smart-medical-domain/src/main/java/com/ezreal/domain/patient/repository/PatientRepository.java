@@ -3,6 +3,7 @@ package com.ezreal.domain.patient.repository;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
 import com.ezreal.domain.patient.model.entity.PatientInfoEntity;
+import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface PatientRepository {
 
-    PatientInfoEntity queryPatientInfo(Long userId, Integer type);
+    PatientQueryInfoEntity queryPatientInfo(Long userId, Integer type);
 
     void addPatientInfo(Long userId, Integer type, PatientInfoEntity patientInfoEntity);
 

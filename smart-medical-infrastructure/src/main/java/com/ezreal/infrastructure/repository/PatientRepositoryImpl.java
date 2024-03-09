@@ -3,9 +3,11 @@ package com.ezreal.infrastructure.repository;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
+import com.ezreal.domain.doctor.model.vo.DepartmentMapper;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
 import com.ezreal.domain.patient.model.entity.PatientInfoEntity;
+import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
 import com.ezreal.domain.patient.model.vo.ReserveStatus;
 import com.ezreal.domain.patient.repository.PatientRepository;
 import com.ezreal.infrastructure.mapper.MedicalMonitorRecordMapper;
@@ -43,10 +45,10 @@ public class PatientRepositoryImpl implements PatientRepository {
     private MedicalReservationMapper reservationMapper;
 
     @Override
-    public PatientInfoEntity queryPatientInfo(Long userId, Integer type) {
+    public PatientQueryInfoEntity queryPatientInfo(Long userId, Integer type) {
         MedicalPatient medicalPatient = patientMapper.selectByUserId(userId);
 
-        PatientInfoEntity patientInfoEntity = new PatientInfoEntity();
+        PatientQueryInfoEntity patientInfoEntity = new PatientQueryInfoEntity();
         patientInfoEntity.setName(medicalPatient.getName());
         patientInfoEntity.setEmail(medicalPatient.getEmail());
         patientInfoEntity.setAge(medicalPatient.getAge());
@@ -55,7 +57,7 @@ public class PatientRepositoryImpl implements PatientRepository {
         patientInfoEntity.setWeight(medicalPatient.getWeight());
         patientInfoEntity.setSickReason(medicalPatient.getSickReason());
         patientInfoEntity.setSickHistory(medicalPatient.getSickHistory());
-        patientInfoEntity.setDepartment(medicalPatient.getDepartment());
+        patientInfoEntity.setDepartmentName(Constants.DepartmentType.getByCode(medicalPatient.getDepartment()).getInfo());
         patientInfoEntity.setHealthMonitor(medicalPatient.getHealthMonitor());
         patientInfoEntity.setLocation(medicalPatient.getLocation());
         return patientInfoEntity;
@@ -78,7 +80,7 @@ public class PatientRepositoryImpl implements PatientRepository {
         medicalPatient.setHealthMonitor(patientInfoEntity.getHealthMonitor());
         medicalPatient.setLocation(patientInfoEntity.getLocation());
 
-        PatientInfoEntity entity = queryPatientInfo(userId, type);
+        PatientQueryInfoEntity entity = queryPatientInfo(userId, type);
         if (entity == null) {
             patientMapper.insertSelective(medicalPatient);
             log.info("增加病人信息, userId:{}", userId);
@@ -90,7 +92,7 @@ public class PatientRepositoryImpl implements PatientRepository {
 
     @Override
     public void addPatientMonitorInfo(Long userId, Integer type, PatientHeathMonitorEntity patientHeathMonitorEntity) {
-        PatientInfoEntity entity = queryPatientInfo(userId, type);
+        PatientQueryInfoEntity entity = queryPatientInfo(userId, type);
         if (entity == null) {
             log.error("患者不存在, userId:{}", userId);
             throw new BusinessException(Constants.ResponseCode.PATIENT_NOT_FOUND);
