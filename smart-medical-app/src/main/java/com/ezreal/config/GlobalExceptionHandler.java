@@ -7,6 +7,7 @@ import com.ezreal.types.common.ResultUtils;
 import com.ezreal.types.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,6 +31,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public Response<String> handleBusinessException(BusinessException exception) {
         return ResultUtils.fail(exception.getCode(), exception.getInfo());
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    public Response<String> handleRuntimeException(DuplicateKeyException exception) {
+        return ResultUtils.fail(Constants.ResponseCode.USER_EXIST.getCode(), exception.getMessage());
     }
 
     /**
