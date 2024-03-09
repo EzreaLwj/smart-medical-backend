@@ -1,5 +1,7 @@
 package com.ezreal.infrastructure.mapper;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.ezreal.infrastructure.po.MedicalPatient;
@@ -11,6 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2024-03-09 15:45:36
 * @Entity com.ezreal.infrastructure.po.MedicalPatient
 */
+@Mapper
 public interface MedicalPatientMapper extends BaseMapper<MedicalPatient> {
     MedicalPatient selectByUserId(@Param("userId") Long userId);
 
