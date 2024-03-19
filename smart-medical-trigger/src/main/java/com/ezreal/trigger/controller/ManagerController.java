@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Ezreal
  * @Date 2024/3/9
  */
-@Api(tags = "管理员模块")
+@Api("管理员模块")
 @RestController
 @RequestMapping("/manager")
 public class ManagerController {
