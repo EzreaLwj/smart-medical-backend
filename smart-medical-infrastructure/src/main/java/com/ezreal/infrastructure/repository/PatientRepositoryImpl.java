@@ -55,11 +55,12 @@ public class PatientRepositoryImpl implements PatientRepository {
         if (medicalPatient == null) {
             return null;
         }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         PatientQueryInfoEntity patientInfoEntity = new PatientQueryInfoEntity();
         patientInfoEntity.setName(medicalPatient.getName());
         patientInfoEntity.setEmail(medicalPatient.getEmail());
         patientInfoEntity.setAge(medicalPatient.getAge());
-        patientInfoEntity.setBirthday(medicalPatient.getBirthday());
+        patientInfoEntity.setBirthday(simpleDateFormat.format(medicalPatient.getBirthday()));
         patientInfoEntity.setHeight(medicalPatient.getHeight());
         patientInfoEntity.setWeight(medicalPatient.getWeight());
         patientInfoEntity.setSickReason(medicalPatient.getSickReason());
@@ -159,6 +160,8 @@ public class PatientRepositoryImpl implements PatientRepository {
 
     @Override
     public List<PatientQueryInfoEntity> queryPatientInfoList(PatientQueryEntity patientQueryRequest) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         patientQueryRequest.setPageNo((patientQueryRequest.getPageNo() - 1) * patientQueryRequest.getPageSize());
         List<MedicalPatient> medicalPatients = patientMapper.queryPatientInfoList(patientQueryRequest);
         return medicalPatients.stream().map((medicalPatient -> {
@@ -166,7 +169,7 @@ public class PatientRepositoryImpl implements PatientRepository {
             patientQueryInfoEntity.setName(medicalPatient.getName());
             patientQueryInfoEntity.setEmail(medicalPatient.getEmail());
             patientQueryInfoEntity.setAge(medicalPatient.getAge());
-            patientQueryInfoEntity.setBirthday(medicalPatient.getBirthday());
+            patientQueryInfoEntity.setBirthday(simpleDateFormat.format(medicalPatient.getBirthday()));
             patientQueryInfoEntity.setHeight(medicalPatient.getHeight());
             patientQueryInfoEntity.setWeight(medicalPatient.getWeight());
             patientQueryInfoEntity.setSickReason(medicalPatient.getSickReason());

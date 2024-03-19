@@ -30,7 +30,7 @@ public class PatientQueryInfoEntity {
     /**
      * 生日
      */
-    private Date birthday;
+    private String birthday;
 
     /**
      * 患者身高,单位cm

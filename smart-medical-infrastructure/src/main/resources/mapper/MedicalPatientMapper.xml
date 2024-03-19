@@ -44,7 +44,7 @@
                 department= #{request.departmentId}
             </if>
             <if test="request.name != null">
-                name = #{request.name}
+                and `name` like concat('%', #{request.name}, '%')
             </if>
         </where>
         order by create_time desc
@@ -58,7 +58,7 @@
                 department= #{request.departmentId}
             </if>
             <if test="request.name != null">
-                name = #{request.name}
+                and `name` like concat('%', #{request.name}, '%')
             </if>
         </where>
     </select>

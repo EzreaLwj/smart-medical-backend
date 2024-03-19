@@ -1,5 +1,6 @@
 package com.ezreal.domain.patient.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.ezreal.domain.patient.model.aggregates.PatientBaseInfoAggregate;
 import com.ezreal.domain.patient.model.aggregates.PatientMonitorAggregate;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
@@ -11,6 +12,7 @@ import com.ezreal.types.common.Constants;
 import com.ezreal.types.common.Response;
 import com.ezreal.types.common.ResultUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -63,7 +65,9 @@ public class PatientServiceImpl implements PatientService {
         queryEntity.setPageNo(patientQueryRequest.getPageNo());
         queryEntity.setPageSize(patientQueryRequest.getPageSize());
         queryEntity.setName(patientQueryRequest.getName());
-        queryEntity.setDepartmentId(Constants.DepartmentType.getByName(patientQueryRequest.getDepartmentName()).getCode());
+        if (StrUtil.isNotEmpty(patientQueryRequest.getDepartmentName())) {
+            queryEntity.setDepartmentId(Constants.DepartmentType.getByName(patientQueryRequest.getDepartmentName()).getCode());
+        }
 
         List<PatientQueryInfoEntity> patientQueryInfoEntities = patientRepository.queryPatientInfoList(queryEntity);
         Long total = patientRepository.queryPatientInfoTotal(queryEntity);
