@@ -3,6 +3,7 @@ package com.ezreal.domain.patient.repository;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
 import com.ezreal.domain.patient.model.entity.PatientInfoEntity;
+import com.ezreal.domain.patient.model.entity.PatientQueryEntity;
 import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
 import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 
@@ -24,7 +25,7 @@ public interface PatientRepository {
 
     void reserveDoctor(ReserveAggregate reserveAggregate);
 
-    List<PatientQueryInfoEntity> queryPatientInfoList(PatientQueryRequest patientQueryRequest);
+    List<PatientQueryInfoEntity> queryPatientInfoList(PatientQueryEntity queryEntity);
 
-    Long queryPatientInfoTotal(PatientQueryRequest patientQueryRequest);
+    Long queryPatientInfoTotal(PatientQueryEntity queryEntity);
 }

@@ -3,13 +3,11 @@ package com.ezreal.domain.patient.service.impl;
 import com.ezreal.domain.patient.model.aggregates.PatientBaseInfoAggregate;
 import com.ezreal.domain.patient.model.aggregates.PatientMonitorAggregate;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
-import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
-import com.ezreal.domain.patient.model.entity.PatientInfoList;
-import com.ezreal.domain.patient.model.entity.PatientMonitorRecordList;
-import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
+import com.ezreal.domain.patient.model.entity.*;
 import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 import com.ezreal.domain.patient.repository.PatientRepository;
 import com.ezreal.domain.patient.service.PatientService;
+import com.ezreal.types.common.Constants;
 import com.ezreal.types.common.Response;
 import com.ezreal.types.common.ResultUtils;
 import org.springframework.stereotype.Service;
@@ -60,8 +58,15 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Response<PatientInfoList> queryPatientInfo(PatientQueryRequest patientQueryRequest) {
-        List<PatientQueryInfoEntity> patientQueryInfoEntities = patientRepository.queryPatientInfoList(patientQueryRequest);
-        Long total = patientRepository.queryPatientInfoTotal(patientQueryRequest);
+
+        PatientQueryEntity queryEntity = new PatientQueryEntity();
+        queryEntity.setPageNo(patientQueryRequest.getPageNo());
+        queryEntity.setPageSize(patientQueryRequest.getPageSize());
+        queryEntity.setName(patientQueryRequest.getName());
+        queryEntity.setDepartmentId(Constants.DepartmentType.getByName(patientQueryRequest.getDepartmentName()).getCode());
+
+        List<PatientQueryInfoEntity> patientQueryInfoEntities = patientRepository.queryPatientInfoList(queryEntity);
+        Long total = patientRepository.queryPatientInfoTotal(queryEntity);
         PatientInfoList patientInfoList = new PatientInfoList();
         patientInfoList.setPatientQueryInfoEntities(patientQueryInfoEntities);
         patientInfoList.setTotal(total);

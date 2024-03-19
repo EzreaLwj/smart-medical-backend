@@ -7,6 +7,7 @@ import com.ezreal.domain.doctor.model.vo.DepartmentMapper;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
 import com.ezreal.domain.patient.model.entity.PatientInfoEntity;
+import com.ezreal.domain.patient.model.entity.PatientQueryEntity;
 import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
 import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 import com.ezreal.domain.patient.model.vo.ReserveStatus;
@@ -147,7 +148,7 @@ public class PatientRepositoryImpl implements PatientRepository {
     }
 
     @Override
-    public List<PatientQueryInfoEntity> queryPatientInfoList(PatientQueryRequest patientQueryRequest) {
+    public List<PatientQueryInfoEntity> queryPatientInfoList(PatientQueryEntity patientQueryRequest) {
         patientQueryRequest.setPageNo((patientQueryRequest.getPageNo() - 1) * patientQueryRequest.getPageSize());
         List<MedicalPatient> medicalPatients = patientMapper.queryPatientInfoList(patientQueryRequest);
         return medicalPatients.stream().map((medicalPatient -> {
@@ -168,7 +169,7 @@ public class PatientRepositoryImpl implements PatientRepository {
     }
 
     @Override
-    public Long queryPatientInfoTotal(PatientQueryRequest patientQueryRequest) {
+    public Long queryPatientInfoTotal(PatientQueryEntity patientQueryRequest) {
         return patientMapper.queryPatientInfoListCount(patientQueryRequest);
     }
 

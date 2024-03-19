@@ -19,5 +19,5 @@ public class PatientQueryRequest {
 
     private String name;
 
-    private Integer departmentId;
+    private String departmentName;
 }

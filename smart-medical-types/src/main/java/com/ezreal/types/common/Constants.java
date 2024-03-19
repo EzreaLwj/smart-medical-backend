@@ -45,8 +45,7 @@ public class Constants {
 
         NEI_KE(1, "内科"),
         WAI_KE(2, "外科"),
-        PIFU_KE(3, "皮肤科")
-        ;
+        PIFU_KE(3, "皮肤科");
 
         private final int code;
 
@@ -55,6 +54,15 @@ public class Constants {
         public static DepartmentType getByCode(int code) {
             for (DepartmentType value : values()) {
                 if (value.getCode() == code) {
+                    return value;
+                }
+            }
+            return NEI_KE;
+        }
+
+        public static DepartmentType getByName(String name) {
+            for (DepartmentType value : values()) {
+                if (value.getInfo().equals(name)) {
                     return value;
                 }
             }
