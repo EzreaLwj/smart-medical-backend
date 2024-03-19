@@ -3,21 +3,21 @@ package com.ezreal.infrastructure.repository;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
-import com.ezreal.domain.doctor.model.vo.DepartmentMapper;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
 import com.ezreal.domain.patient.model.entity.PatientInfoEntity;
 import com.ezreal.domain.patient.model.entity.PatientQueryEntity;
 import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
-import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 import com.ezreal.domain.patient.model.vo.ReserveStatus;
 import com.ezreal.domain.patient.repository.PatientRepository;
 import com.ezreal.infrastructure.mapper.MedicalMonitorRecordMapper;
 import com.ezreal.infrastructure.mapper.MedicalPatientMapper;
 import com.ezreal.infrastructure.mapper.MedicalReservationMapper;
+import com.ezreal.infrastructure.mapper.MedicalUserMapper;
 import com.ezreal.infrastructure.po.MedicalMonitorRecord;
 import com.ezreal.infrastructure.po.MedicalPatient;
 import com.ezreal.infrastructure.po.MedicalReservation;
+import com.ezreal.infrastructure.po.MedicalUser;
 import com.ezreal.types.common.Constants;
 import com.ezreal.types.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
@@ -46,10 +46,15 @@ public class PatientRepositoryImpl implements PatientRepository {
     @Resource
     private MedicalReservationMapper reservationMapper;
 
+    @Resource
+    private MedicalUserMapper medicalUserMapper;
+
     @Override
     public PatientQueryInfoEntity queryPatientInfo(Long userId, Integer type) {
         MedicalPatient medicalPatient = patientMapper.selectByUserId(userId);
-
+        if (medicalPatient == null) {
+            return null;
+        }
         PatientQueryInfoEntity patientInfoEntity = new PatientQueryInfoEntity();
         patientInfoEntity.setName(medicalPatient.getName());
         patientInfoEntity.setEmail(medicalPatient.getEmail());
@@ -68,10 +73,15 @@ public class PatientRepositoryImpl implements PatientRepository {
     @Override
     public void addPatientInfo(Long userId, Integer type, PatientInfoEntity patientInfoEntity) {
 
+        MedicalUser medicalUser = medicalUserMapper.selectByUserId(userId);
+        if (medicalUser == null) {
+            throw new BusinessException(Constants.ResponseCode.PATIENT_NOT_FOUND);
+        }
+
         MedicalPatient medicalPatient = new MedicalPatient();
         medicalPatient.setUserId(userId);
         medicalPatient.setName(patientInfoEntity.getName());
-        medicalPatient.setEmail(patientInfoEntity.getEmail());
+        medicalPatient.setEmail(medicalUser.getEmail());
         medicalPatient.setAge(patientInfoEntity.getAge());
         medicalPatient.setBirthday(patientInfoEntity.getBirthday());
         medicalPatient.setHeight(patientInfoEntity.getHeight());

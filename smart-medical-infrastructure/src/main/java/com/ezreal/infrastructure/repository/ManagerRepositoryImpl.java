@@ -1,6 +1,7 @@
 package com.ezreal.infrastructure.repository;
 
 import cn.hutool.core.lang.generator.SnowflakeGenerator;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
 import com.ezreal.domain.manager.model.aggregate.AddAccountAggregate;
 import com.ezreal.domain.manager.model.entity.DoctorEntity;
@@ -43,7 +44,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
         String phone = addAccountAggregate.getPhone();
 
         SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
-        Long userId = snowflakeGenerator.next();
+        Long userId = RandomUtil.randomLong(1000000);
 
         MedicalUser medicalUser = new MedicalUser();
         medicalUser.setUserId(userId);
