@@ -65,7 +65,7 @@ public class ManagerController {
         doctorEntity.setDepartment(addDoctorInfoRequest.getDepartment());
         doctorEntity.setDescription(addDoctorInfoRequest.getDescription());
         doctorEntity.setPhone(addDoctorInfoRequest.getPhone());
-
+        addDoctorInfoAggregate.setDoctorEntity(doctorEntity);
 
         MedicalUserEntity medicalUserEntity = managerService.addDoctorInfo(addDoctorInfoAggregate);
         AddAccountResponse addAccountResponse = new AddAccountResponse();

@@ -34,7 +34,7 @@ public class AddDoctorInfoRequest implements Serializable {
     private String phone;
 
     /**
-     * 0-管理员 1-病人 2-患者
+     * 0-管理员 1-医生 2-患者
      */
     @NotBlank(message = "类型不能为空")
     private Integer type;

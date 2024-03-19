@@ -1,7 +1,9 @@
 package com.ezreal.trigger.controller;
 
+import com.ezreal.domain.doctor.model.entity.DepartmentLabelEntity;
 import com.ezreal.domain.doctor.model.resp.DoctorQueryListResponse;
 import com.ezreal.domain.doctor.service.DoctorService;
+import com.ezreal.trigger.dto.doctor.QueryDepartmentResponse;
 import com.ezreal.trigger.dto.doctor.QueryDoctorRequest;
 import com.ezreal.trigger.dto.doctor.QueryDoctorResponse;
 import com.ezreal.types.common.Response;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Ezreal
@@ -38,5 +41,14 @@ public class DoctorController {
         queryDoctorResponse.setDoctorEntityList(response.getDoctorEntityList());
         queryDoctorResponse.setTotal(response.getTotal());
         return ResultUtils.success(queryDoctorResponse);
+    }
+
+    @ApiOperation("查询科室信息")
+    @GetMapping("/department")
+    public Response<QueryDepartmentResponse> queryDepartments() {
+        List<DepartmentLabelEntity> departmentLabelEntityList = doctorService.queryDepartmentList();
+        QueryDepartmentResponse queryDepartmentResponse = new QueryDepartmentResponse();
+        queryDepartmentResponse.setDepartmentLabelEntityList(departmentLabelEntityList);
+        return ResultUtils.success(queryDepartmentResponse);
     }
 }
