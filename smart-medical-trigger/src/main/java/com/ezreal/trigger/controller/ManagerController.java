@@ -49,8 +49,9 @@ public class ManagerController {
     }
 
     @ApiOperation("增加医生账号")
-    @PostMapping("/addUserAccount")
-    public Response<AddAccountResponse> addUserAccount(@RequestBody AddDoctorInfoRequest addDoctorInfoRequest) {
+    @PostMapping("/addDoctorAccount" +
+            "")
+    public Response<AddAccountResponse> addDoctorAccount(@RequestBody AddDoctorInfoRequest addDoctorInfoRequest) {
 
         AddDoctorInfoAggregate addDoctorInfoAggregate = new AddDoctorInfoAggregate();
         addDoctorInfoAggregate.setEmail(addDoctorInfoRequest.getEmail());
