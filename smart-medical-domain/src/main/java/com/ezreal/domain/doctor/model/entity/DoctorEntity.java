@@ -22,7 +22,7 @@ public class DoctorEntity {
     /**
      * 性别 0-男,1-女
      */
-    private Integer gender;
+    private String gender;
 
     /**
      * 医生头衔/职位

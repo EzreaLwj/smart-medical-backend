@@ -5,6 +5,7 @@ import com.ezreal.domain.doctor.model.vo.DepartmentMapper;
 import com.ezreal.domain.doctor.repository.DoctorRepository;
 import com.ezreal.infrastructure.mapper.MedicalDoctorMapper;
 import com.ezreal.infrastructure.po.MedicalDoctor;
+import com.ezreal.types.common.Constants;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -30,7 +31,7 @@ public class DoctorRepositoryImpl implements DoctorRepository {
             DoctorEntity doctorEntity = new DoctorEntity();
             doctorEntity.setUserId(medicalDoctor.getUserId());
             doctorEntity.setName(medicalDoctor.getName());
-            doctorEntity.setGender(medicalDoctor.getGender());
+            doctorEntity.setGender(Constants.Gender.getByCode(medicalDoctor.getGender()).getInfo());
             doctorEntity.setPosition(medicalDoctor.getPosition());
             doctorEntity.setDescription(medicalDoctor.getDescription());
             doctorEntity.setPhone(medicalDoctor.getPhone());
@@ -54,7 +55,7 @@ public class DoctorRepositoryImpl implements DoctorRepository {
         DoctorEntity doctorEntity = new DoctorEntity();
         doctorEntity.setUserId(medicalDoctor.getUserId());
         doctorEntity.setName(medicalDoctor.getName());
-        doctorEntity.setGender(medicalDoctor.getGender());
+        doctorEntity.setGender(Constants.Gender.getByCode(medicalDoctor.getGender()).getInfo());
         doctorEntity.setPosition(medicalDoctor.getPosition());
         doctorEntity.setDepartmentName(DepartmentMapper.getDepartName(medicalDoctor.getDepartment()));
         doctorEntity.setDescription(medicalDoctor.getDescription());
