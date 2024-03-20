@@ -1,6 +1,7 @@
 package com.ezreal.infrastructure.repository;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.generator.SnowflakeGenerator;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
@@ -128,7 +129,9 @@ public class PatientRepositoryImpl implements PatientRepository {
             } else {
                 MedicalMonitorRecord medicalMonitorRecord = new MedicalMonitorRecord();
                 medicalMonitorRecord.setMonitorTime(monitorTime);
-                medicalMonitorRecord.setRecordId(RandomUtil.randomLong());
+                SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
+                Long recordId = snowflakeGenerator.next();
+                medicalMonitorRecord.setRecordId(recordId);
                 medicalMonitorRecord.setPatientId(userId);
                 medicalMonitorRecord.setHealthMonitor(JSONUtil.toJsonStr(patientHeathMonitorEntity));
                 monitorRecordMapper.insertSelective(medicalMonitorRecord);
