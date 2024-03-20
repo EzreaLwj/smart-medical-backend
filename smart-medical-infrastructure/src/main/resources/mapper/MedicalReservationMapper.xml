@@ -47,4 +47,11 @@
             <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
+    <select id="queryByPatientId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from medical_reservation
+        where
+        patient_id = #{patientId,jdbcType=NUMERIC}
+    </select>
 </mapper>

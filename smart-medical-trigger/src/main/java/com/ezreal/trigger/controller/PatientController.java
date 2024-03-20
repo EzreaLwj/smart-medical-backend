@@ -5,7 +5,9 @@ import com.ezreal.domain.patient.model.aggregates.PatientMonitorAggregate;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.PatientInfoList;
 import com.ezreal.domain.patient.model.entity.PatientMonitorRecordList;
+import com.ezreal.domain.patient.model.entity.ReserveDoctorList;
 import com.ezreal.domain.patient.model.request.PatientQueryRequest;
+import com.ezreal.domain.patient.model.request.ReserveDoctorQueryRequest;
 import com.ezreal.domain.patient.service.PatientService;
 import com.ezreal.trigger.dto.patient.*;
 import com.ezreal.types.common.Response;
@@ -81,6 +83,12 @@ public class PatientController {
         reserveAggregate.setEndTime(reserveDoctorRequest.getEndTime());
 
         return patientService.reserveDoctor(reserveAggregate);
+    }
+
+    @ApiOperation("查询预约医生")
+    @GetMapping("/查询预约医生列表")
+    public Response<ReserveDoctorList> queryReserveDoctorList(@Validated ReserveDoctorQueryRequest reserveDoctorQueryRequest) {
+        return patientService.queryReserveDoctorList(reserveDoctorQueryRequest);
     }
 
 }

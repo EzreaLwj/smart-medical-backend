@@ -5,20 +5,12 @@ import cn.hutool.core.lang.generator.SnowflakeGenerator;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
-import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
-import com.ezreal.domain.patient.model.entity.PatientInfoEntity;
-import com.ezreal.domain.patient.model.entity.PatientQueryEntity;
-import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
+import com.ezreal.domain.patient.model.entity.*;
+import com.ezreal.domain.patient.model.request.ReserveDoctorQueryRequest;
 import com.ezreal.domain.patient.model.vo.ReserveStatus;
 import com.ezreal.domain.patient.repository.PatientRepository;
-import com.ezreal.infrastructure.mapper.MedicalMonitorRecordMapper;
-import com.ezreal.infrastructure.mapper.MedicalPatientMapper;
-import com.ezreal.infrastructure.mapper.MedicalReservationMapper;
-import com.ezreal.infrastructure.mapper.MedicalUserMapper;
-import com.ezreal.infrastructure.po.MedicalMonitorRecord;
-import com.ezreal.infrastructure.po.MedicalPatient;
-import com.ezreal.infrastructure.po.MedicalReservation;
-import com.ezreal.infrastructure.po.MedicalUser;
+import com.ezreal.infrastructure.mapper.*;
+import com.ezreal.infrastructure.po.*;
 import com.ezreal.types.common.Constants;
 import com.ezreal.types.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +20,7 @@ import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -49,6 +42,9 @@ public class PatientRepositoryImpl implements PatientRepository {
 
     @Resource
     private MedicalUserMapper medicalUserMapper;
+
+    @Resource
+    private MedicalDoctorMapper doctorMapper;
 
     @Override
     public PatientQueryInfoEntity queryPatientInfo(Long userId, Integer type) {
@@ -187,6 +183,34 @@ public class PatientRepositoryImpl implements PatientRepository {
     @Override
     public Long queryPatientInfoTotal(PatientQueryEntity patientQueryRequest) {
         return patientMapper.queryPatientInfoListCount(patientQueryRequest);
+    }
+
+    @Override
+    public List<ReserveDoctorEntity> queryReserveDoctorList(ReserveDoctorQueryRequest queryRequest) {
+        Integer pageSize = queryRequest.getPageSize();
+        Integer pageNo = queryRequest.getPageNo();
+        pageNo = (pageNo - 1) * pageSize;
+
+        List<MedicalDoctor> medicalDoctors = doctorMapper.selectAll(pageNo, pageSize);
+        Set<Long> doctorIds = reservationMapper.queryByPatientId(queryRequest.getUserId()).stream().map(MedicalReservation::getDoctorId).collect(Collectors.toSet());
+        List<ReserveDoctorEntity> reserveDoctorEntityList = medicalDoctors.stream().map(medicalDoctor -> {
+            ReserveDoctorEntity reserveDoctorEntity = new ReserveDoctorEntity();
+            reserveDoctorEntity.setUserId(medicalDoctor.getUserId());
+            reserveDoctorEntity.setName(medicalDoctor.getName());
+            reserveDoctorEntity.setGender(Constants.Gender.getByCode(medicalDoctor.getGender()).getInfo());
+            reserveDoctorEntity.setPosition(medicalDoctor.getPosition());
+            reserveDoctorEntity.setDepartment(Constants.DepartmentType.getByCode(medicalDoctor.getDepartment()).getInfo());
+            reserveDoctorEntity.setDescription(medicalDoctor.getDescription());
+            reserveDoctorEntity.setPhone(medicalDoctor.getPhone());
+            reserveDoctorEntity.setReserved(doctorIds.contains(medicalDoctor.getUserId()));
+            return reserveDoctorEntity;
+        }).collect(Collectors.toList());
+        return reserveDoctorEntityList;
+    }
+
+    @Override
+    public Long queryReserveDoctorCount(ReserveDoctorQueryRequest queryRequest) {
+        return doctorMapper.queryDoctorListTotal();
     }
 
 }

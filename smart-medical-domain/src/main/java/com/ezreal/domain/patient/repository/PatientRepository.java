@@ -1,11 +1,9 @@
 package com.ezreal.domain.patient.repository;
 
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
-import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
-import com.ezreal.domain.patient.model.entity.PatientInfoEntity;
-import com.ezreal.domain.patient.model.entity.PatientQueryEntity;
-import com.ezreal.domain.patient.model.entity.PatientQueryInfoEntity;
+import com.ezreal.domain.patient.model.entity.*;
 import com.ezreal.domain.patient.model.request.PatientQueryRequest;
+import com.ezreal.domain.patient.model.request.ReserveDoctorQueryRequest;
 
 import java.util.List;
 
@@ -28,4 +26,8 @@ public interface PatientRepository {
     List<PatientQueryInfoEntity> queryPatientInfoList(PatientQueryEntity queryEntity);
 
     Long queryPatientInfoTotal(PatientQueryEntity queryEntity);
+
+    List<ReserveDoctorEntity> queryReserveDoctorList(ReserveDoctorQueryRequest queryRequest);
+
+    Long queryReserveDoctorCount(ReserveDoctorQueryRequest queryRequest);
 }

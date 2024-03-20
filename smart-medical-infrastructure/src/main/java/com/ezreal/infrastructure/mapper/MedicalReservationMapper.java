@@ -1,4 +1,5 @@
 package com.ezreal.infrastructure.mapper;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,6 +15,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 @Mapper
 public interface MedicalReservationMapper extends BaseMapper<MedicalReservation> {
     int insertSelective(MedicalReservation medicalReservation);
+
+    List<MedicalReservation> queryByPatientId(@Param("patientId") Long patientId);
 }
 
 
