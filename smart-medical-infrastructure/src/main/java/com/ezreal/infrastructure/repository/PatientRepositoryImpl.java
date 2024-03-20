@@ -150,8 +150,8 @@ public class PatientRepositoryImpl implements PatientRepository {
         medicalReservation.setDoctorId(reserveAggregate.getDoctorId());
         medicalReservation.setStatus(ReserveStatus.RESERVED.getCode());
         medicalReservation.setReservation(reserveAggregate.getReservation());
-        medicalReservation.setBeginTime(DateUtil.parseTime(reserveAggregate.getBeginTime()));
-        medicalReservation.setEndTime(DateUtil.parseTime(reserveAggregate.getEndTime()));
+        medicalReservation.setBeginTime(DateUtil.parseDateTime(reserveAggregate.getBeginTime()));
+        medicalReservation.setEndTime(DateUtil.parseDateTime(reserveAggregate.getEndTime()));
         medicalReservation.setReservation(reserveAggregate.getReservation());
         log.info("预约成功，patientId:{}, doctorId:{}", reserveAggregate.getPatientId(), reserveAggregate.getDoctorId());
         reservationMapper.insertSelective(medicalReservation);

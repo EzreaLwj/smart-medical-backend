@@ -72,8 +72,8 @@ public class PatientController {
     }
 
     @ApiOperation("预约医生")
-    @GetMapping("/reserveDoctor")
-    public Response<String> reserveDoctor(ReserveDoctorRequest reserveDoctorRequest) {
+    @PostMapping("/reserveDoctor")
+    public Response<String> reserveDoctor(@RequestBody ReserveDoctorRequest reserveDoctorRequest) {
 
         ReserveAggregate reserveAggregate = new ReserveAggregate();
         reserveAggregate.setPatientId(reserveDoctorRequest.getPatientId());
