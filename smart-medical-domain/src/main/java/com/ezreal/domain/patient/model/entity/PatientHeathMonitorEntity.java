@@ -2,6 +2,8 @@ package com.ezreal.domain.patient.model.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author Ezreal
  * @Date 2024/3/9
@@ -28,4 +30,9 @@ public class PatientHeathMonitorEntity {
      * 脉搏检测
      */
     private String pulse;
+
+    /**
+     * 时间
+     */
+    private String time;
 }

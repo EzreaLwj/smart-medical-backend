@@ -1,5 +1,6 @@
 package com.ezreal.trigger.dto.patient;
 
+import com.ezreal.domain.patient.model.entity.MonitorData;
 import com.ezreal.domain.patient.model.entity.PatientHeathMonitorEntity;
 import lombok.Data;
 
@@ -17,5 +18,11 @@ public class QueryHealthMonitorRecordResponse implements Serializable {
 
     private Integer days;
 
-    private List<PatientHeathMonitorEntity> patientHeathMonitorEntities;
+    private MonitorData oxygenData;
+
+    private MonitorData weightData;
+
+    private MonitorData pulseData;
+
+    private MonitorData temperature;
 }

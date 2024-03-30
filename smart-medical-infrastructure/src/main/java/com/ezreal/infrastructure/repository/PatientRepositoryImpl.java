@@ -139,7 +139,11 @@ public class PatientRepositoryImpl implements PatientRepository {
     @Override
     public List<PatientHeathMonitorEntity> queryPatientMonitorRecords(Long patientId, int days) {
         List<MedicalMonitorRecord> medicalMonitorRecords = monitorRecordMapper.selectByPatientId(patientId, days);
-        return medicalMonitorRecords.stream().map((medicalMonitorRecord -> JSONUtil.toBean(medicalMonitorRecord.getHealthMonitor(), PatientHeathMonitorEntity.class))).collect(Collectors.toList());
+        return medicalMonitorRecords.stream().map(medicalMonitorRecord -> {
+            PatientHeathMonitorEntity monitorEntity = JSONUtil.toBean(medicalMonitorRecord.getHealthMonitor(), PatientHeathMonitorEntity.class);
+            monitorEntity.setTime(medicalMonitorRecord.getMonitorTime());
+            return monitorEntity;
+        }).collect(Collectors.toList());
     }
 
     @Override

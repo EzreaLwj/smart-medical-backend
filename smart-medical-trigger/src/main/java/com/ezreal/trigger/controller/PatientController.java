@@ -3,9 +3,7 @@ package com.ezreal.trigger.controller;
 import com.ezreal.domain.patient.model.aggregates.PatientBaseInfoAggregate;
 import com.ezreal.domain.patient.model.aggregates.PatientMonitorAggregate;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
-import com.ezreal.domain.patient.model.entity.PatientInfoList;
-import com.ezreal.domain.patient.model.entity.PatientMonitorRecordList;
-import com.ezreal.domain.patient.model.entity.ReserveDoctorList;
+import com.ezreal.domain.patient.model.entity.*;
 import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 import com.ezreal.domain.patient.model.request.ReserveDoctorQueryRequest;
 import com.ezreal.domain.patient.service.PatientService;
@@ -18,6 +16,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Ezreal
@@ -67,7 +67,43 @@ public class PatientController {
 
         QueryHealthMonitorRecordResponse response = new QueryHealthMonitorRecordResponse();
         response.setDays(patientMonitorRecordList.getDays());
-        response.setPatientHeathMonitorEntities(patientMonitorRecordList.getPatientHeathMonitorEntities());
+
+        List<PatientHeathMonitorEntity> patientHeathMonitorEntities = patientMonitorRecordList.getPatientHeathMonitorEntities();
+
+        List<String> times = patientHeathMonitorEntities.stream().map(PatientHeathMonitorEntity::getTime).collect(Collectors.toList());
+
+        List<Double> bloodOxygens = patientHeathMonitorEntities.stream().map((entity) -> {
+            String bloodOxygen = entity.getBloodOxygen();
+            return Double.parseDouble(bloodOxygen);
+        }).collect(Collectors.toList());
+
+        MonitorData oxygenData = new MonitorData(bloodOxygens, "oxygen", times);
+        response.setOxygenData(oxygenData);
+
+        List<Double> weights = patientHeathMonitorEntities.stream().map((entity) -> {
+            String weight = entity.getWeight();
+            return Double.parseDouble(weight);
+        }).collect(Collectors.toList());
+
+        MonitorData weightData = new MonitorData(weights, "weight", times);
+        response.setWeightData(weightData);
+
+        List<Double> pulses = patientHeathMonitorEntities.stream().map((entity) -> {
+            String pulse = entity.getPulse();
+            return Double.parseDouble(pulse);
+        }).collect(Collectors.toList());
+
+        MonitorData pulseData = new MonitorData(pulses, "weight", times);
+        response.setPulseData(pulseData);
+
+        List<Double> temperatures = patientHeathMonitorEntities.stream().map((entity) -> {
+            String temperature = entity.getTemperature();
+            return Double.parseDouble(temperature);
+        }).collect(Collectors.toList());
+
+        MonitorData temperatureData = new MonitorData(temperatures, "temperature", times);
+        response.setTemperature(temperatureData);
+
         return ResultUtils.success(response);
     }
 
