@@ -1,7 +1,7 @@
-docker build -t doc-platform-backend:test .
+docker build -t smart-medical-backend:test .
 
-docker stop doc-platform-backend
+docker stop smart-medical-backend
 
-docker rm doc-platform-backend
+docker rm smart-medical-backend
 
-docker run --name doc-platform-backend -d -p 8080:8080 doc-platform-backend:test
+docker run --name smart-medical-backend -d -p 8080:8080 smart-medical-backend:test
