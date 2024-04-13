@@ -21,8 +21,7 @@ public class MonitorData implements Serializable {
     private YAxis yAxis;
 
     private Series series;
-
-    public MonitorData(List<Double> data, String name, List<String> time) {
+    public MonitorData(List<Double> data, String name, List<String> time, String unit) {
         this.series = new Series();
         this.xAxis = new XAxis(time);
         this.yAxis = new YAxis();
@@ -30,6 +29,23 @@ public class MonitorData implements Serializable {
         series.setData(data);
         series.setName(name);
         series.setType("line");
+
+        yAxis.setName(unit);
+    }
+
+    public MonitorData(List<Double> data, String name, List<String> time, String unit, Double min, Double max, Double width) {
+        this.series = new Series();
+        this.xAxis = new XAxis(time);
+        this.yAxis = new YAxis();
+
+        series.setData(data);
+        series.setName(name);
+        series.setType("line");
+
+        yAxis.setName(unit);
+        yAxis.setMin(min);
+        yAxis.setMax(max);
+        yAxis.setBarWidth(width);
     }
 
     @Data
@@ -39,6 +55,8 @@ public class MonitorData implements Serializable {
         private List<Double> data;
 
         private String type = "line";
+
+        private ItemStyle itemStyle = new ItemStyle();
 
         public String getName() {
             return name;
@@ -66,8 +84,31 @@ public class MonitorData implements Serializable {
     }
 
     @Data
+    public static class ItemStyle {
+        private Normal normal = new Normal();
+    }
+
+    @Data
+    private static class Normal {
+        private Label label = new Label();
+    }
+
+    @Data
+    private static class Label {
+        private Boolean show = true;
+    }
+
+    @Data
     private static class YAxis implements Serializable {
         private String type = "value";
+
+        private String name;
+
+        private Double min;
+
+        private Double max;
+
+        private Double barWidth;
 
     }
 

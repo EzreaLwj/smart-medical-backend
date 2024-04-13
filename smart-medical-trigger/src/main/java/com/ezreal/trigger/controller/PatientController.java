@@ -77,7 +77,7 @@ public class PatientController {
             return Double.parseDouble(bloodOxygen);
         }).collect(Collectors.toList());
 
-        MonitorData oxygenData = new MonitorData(bloodOxygens, "oxygen", times);
+        MonitorData oxygenData = new MonitorData(bloodOxygens, "oxygen", times, "%");
         response.setOxygenData(oxygenData);
 
         List<Double> weights = patientHeathMonitorEntities.stream().map((entity) -> {
@@ -85,7 +85,7 @@ public class PatientController {
             return Double.parseDouble(weight);
         }).collect(Collectors.toList());
 
-        MonitorData weightData = new MonitorData(weights, "weight", times);
+        MonitorData weightData = new MonitorData(weights, "weight", times, "kg");
         response.setWeightData(weightData);
 
         List<Double> pulses = patientHeathMonitorEntities.stream().map((entity) -> {
@@ -93,7 +93,7 @@ public class PatientController {
             return Double.parseDouble(pulse);
         }).collect(Collectors.toList());
 
-        MonitorData pulseData = new MonitorData(pulses, "weight", times);
+        MonitorData pulseData = new MonitorData(pulses, "weight", times, "次/分钟", 40.0, 120.0, 20.0);
         response.setPulseData(pulseData);
 
         List<Double> temperatures = patientHeathMonitorEntities.stream().map((entity) -> {
@@ -101,7 +101,7 @@ public class PatientController {
             return Double.parseDouble(temperature);
         }).collect(Collectors.toList());
 
-        MonitorData temperatureData = new MonitorData(temperatures, "temperature", times);
+        MonitorData temperatureData = new MonitorData(temperatures, "temperature", times, "℃", 34.0, 39.0, 1.0);
         response.setTemperature(temperatureData);
 
         return ResultUtils.success(response);
