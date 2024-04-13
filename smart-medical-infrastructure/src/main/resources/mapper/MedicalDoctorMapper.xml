@@ -68,4 +68,19 @@
             <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
+    <select id="selectByNameAndDepartment" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from medical_doctor
+        <where>
+            <if test="name != null">
+                and name like concat('%', #{name},'%')
+            </if>
+            <if test="department != null">
+                and department = #{department,jdbcType=NUMERIC}
+            </if>
+        </where>
+        order by create_time desc
+        limit #{pageNo}, #{pageSize}
+    </select>
 </mapper>

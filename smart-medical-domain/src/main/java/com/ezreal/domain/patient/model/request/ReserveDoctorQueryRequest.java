@@ -20,4 +20,8 @@ public class ReserveDoctorQueryRequest {
     private Long userId;
 
     private Integer type;
+
+    private String name;
+
+    private String department;
 }

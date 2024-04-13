@@ -3,6 +3,7 @@ package com.ezreal.infrastructure.repository;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.generator.SnowflakeGenerator;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.*;
@@ -15,6 +16,7 @@ import com.ezreal.types.common.Constants;
 import com.ezreal.types.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -193,9 +195,14 @@ public class PatientRepositoryImpl implements PatientRepository {
     public List<ReserveDoctorEntity> queryReserveDoctorList(ReserveDoctorQueryRequest queryRequest) {
         Integer pageSize = queryRequest.getPageSize();
         Integer pageNo = queryRequest.getPageNo();
+        String department = queryRequest.getDepartment();
+        String name = queryRequest.getName();
         pageNo = (pageNo - 1) * pageSize;
-
-        List<MedicalDoctor> medicalDoctors = doctorMapper.selectAll(pageNo, pageSize);
+        Integer departmentNo = null;
+        if (StrUtil.isNotEmpty(department)) {
+            departmentNo = Constants.DepartmentType.getByName(department).getCode();
+        }
+        List<MedicalDoctor> medicalDoctors = doctorMapper.selectByNameAndDepartment(name, departmentNo, pageNo, pageSize);
         Set<Long> doctorIds = reservationMapper.queryByPatientId(queryRequest.getUserId()).stream().map(MedicalReservation::getDoctorId).collect(Collectors.toSet());
         List<ReserveDoctorEntity> reserveDoctorEntityList = medicalDoctors.stream().map(medicalDoctor -> {
             ReserveDoctorEntity reserveDoctorEntity = new ReserveDoctorEntity();

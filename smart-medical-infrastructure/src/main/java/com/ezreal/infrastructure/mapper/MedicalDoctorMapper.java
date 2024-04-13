@@ -23,6 +23,12 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
     MedicalDoctor queryByUserId(@Param("userId") Long userId);
 
     int insertSelective(MedicalDoctor medicalDoctor);
+
+
+    List<MedicalDoctor> selectByNameAndDepartment(@Param("name") String name,
+                                                  @Param("department") Integer department,
+                                                  @Param("pageNo") Integer pageNo,
+                                                  @Param("pageSize") Integer pageSize);
 }
 
 
