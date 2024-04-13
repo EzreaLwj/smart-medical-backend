@@ -19,6 +19,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -222,6 +224,25 @@ public class PatientRepositoryImpl implements PatientRepository {
     @Override
     public Long queryReserveDoctorCount(ReserveDoctorQueryRequest queryRequest) {
         return doctorMapper.queryDoctorListTotal();
+    }
+
+    @Override
+    public Double queryBMI(Long userId) {
+        MedicalPatient medicalPatient = patientMapper.selectByUserId(userId);
+
+        BigDecimal height = medicalPatient.getHeight();
+
+        String healthMonitor = medicalPatient.getHealthMonitor();
+        if (StrUtil.isBlank(healthMonitor)) {
+            return 0.0;
+        }
+        PatientHeathMonitorEntity monitorEntity = JSONUtil.toBean(healthMonitor, PatientHeathMonitorEntity.class);
+        if (monitorEntity == null) {
+            return null;
+        }
+        double weight = Double.parseDouble(monitorEntity.getWeight());
+        double v = weight / (height.multiply(height).doubleValue());
+        return new BigDecimal(v).setScale(4, RoundingMode.HALF_UP).doubleValue();
     }
 
 }

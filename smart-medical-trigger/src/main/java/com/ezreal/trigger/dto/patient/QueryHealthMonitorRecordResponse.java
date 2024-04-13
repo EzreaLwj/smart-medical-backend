@@ -25,4 +25,6 @@ public class QueryHealthMonitorRecordResponse implements Serializable {
     private MonitorData pulseData;
 
     private MonitorData temperature;
+
+    private Double bmi;
 }

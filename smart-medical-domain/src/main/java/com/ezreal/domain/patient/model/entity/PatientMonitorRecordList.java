@@ -15,4 +15,6 @@ public class PatientMonitorRecordList {
 
     private List<PatientHeathMonitorEntity> patientHeathMonitorEntities;
 
+    private Double bmi;
+
 }

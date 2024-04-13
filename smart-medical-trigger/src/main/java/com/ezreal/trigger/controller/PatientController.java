@@ -66,6 +66,7 @@ public class PatientController {
         PatientMonitorRecordList patientMonitorRecordList = patientService.queryListHeathMonitorRecords(queryHealthMonitorRecordRequest.getUserId());
 
         QueryHealthMonitorRecordResponse response = new QueryHealthMonitorRecordResponse();
+        response.setBmi(patientMonitorRecordList.getBmi());
         response.setDays(patientMonitorRecordList.getDays());
 
         List<PatientHeathMonitorEntity> patientHeathMonitorEntities = patientMonitorRecordList.getPatientHeathMonitorEntities();

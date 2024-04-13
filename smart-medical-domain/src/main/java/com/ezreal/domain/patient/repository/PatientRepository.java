@@ -30,4 +30,6 @@ public interface PatientRepository {
     List<ReserveDoctorEntity> queryReserveDoctorList(ReserveDoctorQueryRequest queryRequest);
 
     Long queryReserveDoctorCount(ReserveDoctorQueryRequest queryRequest);
+
+    Double queryBMI(Long userId);
 }

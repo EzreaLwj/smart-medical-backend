@@ -50,6 +50,9 @@ public class PatientServiceImpl implements PatientService {
         PatientMonitorRecordList patientMonitorRecordList = new PatientMonitorRecordList();
         patientMonitorRecordList.setDays(days);
         patientMonitorRecordList.setPatientHeathMonitorEntities(patientHeathMonitorEntityList);
+
+        Double bmi = patientRepository.queryBMI(userId);
+        patientMonitorRecordList.setBmi(bmi);
         return patientMonitorRecordList;
     }
 
