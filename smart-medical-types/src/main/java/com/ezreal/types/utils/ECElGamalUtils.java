@@ -62,8 +62,7 @@ public class ECElGamalUtils {
             init();
             // 加密数据
             cipher.init(Cipher.ENCRYPT_MODE, elGamalPublicKey);
-            String originalMessage = "lwj";
-            byte[] encryptedMessage = cipher.doFinal(originalMessage.getBytes());
+            byte[] encryptedMessage = cipher.doFinal(content.getBytes());
             return Base64.encode(encryptedMessage);
         } catch (Exception e) {
             throw new RuntimeException(e);
