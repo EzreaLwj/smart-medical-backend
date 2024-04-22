@@ -11,7 +11,7 @@ import java.security.*;
  * @author Ezreal
  * @Date 2024/4/16
  */
-public class EncryptionUtils {
+public class ECElGamalUtils {
 
     private static PublicKey elGamalPublicKey;
 
@@ -52,12 +52,12 @@ public class EncryptionUtils {
     }
 
     /**
-     * 加密
+     * ECElGamal加密
      *
      * @param content 加密的内容
      * @return 返回Base64处理加密字符串
      */
-    private static String encrypt(String content) {
+    public static String encryptECElGamal(String content) {
         try {
             init();
             // 加密数据
@@ -71,12 +71,12 @@ public class EncryptionUtils {
     }
 
     /**
-     * 解密
+     * ECElGamal解密
      *
      * @param encryptedMessage 解密二进制字节流
      * @return 明文
      */
-    public static String decrypt(byte[] encryptedMessage) {
+    public static String decryptECElGamal(byte[] encryptedMessage) {
         try {
             init();
             // 解密数据
@@ -93,7 +93,7 @@ public class EncryptionUtils {
      *
      * @param src
      */
-    public static void bcElGamal(String src) {
+    public static void ECElGamalTest(String src) {
         try {
             // 公钥加密,私钥解密
             Security.addProvider(new BouncyCastleProvider());
