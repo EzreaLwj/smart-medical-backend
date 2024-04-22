@@ -4,6 +4,7 @@ import com.ezreal.domain.patient.model.aggregates.PatientBaseInfoAggregate;
 import com.ezreal.domain.patient.model.aggregates.PatientMonitorAggregate;
 import com.ezreal.domain.patient.model.aggregates.ReserveAggregate;
 import com.ezreal.domain.patient.model.entity.*;
+import com.ezreal.domain.patient.model.request.PatientInfoQueryRequest;
 import com.ezreal.domain.patient.model.request.PatientQueryRequest;
 import com.ezreal.domain.patient.model.request.ReserveDoctorQueryRequest;
 import com.ezreal.domain.patient.service.PatientService;
@@ -126,6 +127,12 @@ public class PatientController {
     @GetMapping("/查询预约医生列表")
     public Response<ReserveDoctorList> queryReserveDoctorList(@Validated ReserveDoctorQueryRequest reserveDoctorQueryRequest) {
         return patientService.queryReserveDoctorList(reserveDoctorQueryRequest);
+    }
+
+    @ApiOperation("查询患者信息")
+    @GetMapping("/queryPatientDetailInfo")
+    public Response<PatientQueryInfoEntity> queryPatientDetailInfo(PatientInfoQueryRequest request) {
+        return patientService.queryPatientDetailInfo(request);
     }
 
 }
